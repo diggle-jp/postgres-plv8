@@ -1,7 +1,7 @@
 
-FROM postgres:12.3
+FROM postgres:13.2
 
-ENV PLV8_VERSION=2.3.8
+ENV PLV8_VERSION=2.3.15
 ENV buildDependencies="build-essential \
     ca-certificates \
     curl \
