@@ -23,7 +23,7 @@ ENV untimeDependencies="libc++1 \
     libc++abi1"
 
 RUN apt-get update 
-RUN apt-get install -y --no-install-recommends ${buildDependencies} #{untimeDependencies}
+RUN apt-get install -y --no-install-recommends ${buildDependencies} ${untimeDependencies}
 RUN mkdir -p /tmp/build 
 RUN curl -o /tmp/build/v${PLV8_VERSION}.tar.gz -SL "https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz" 
 RUN tar -xzf /tmp/build/v${PLV8_VERSION}.tar.gz -C /tmp/build/ 
