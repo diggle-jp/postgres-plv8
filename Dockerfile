@@ -26,7 +26,7 @@ RUN apt-get install -y --no-install-recommends ${buildDependencies} ${untimeDepe
 RUN mkdir -p /tmp/build 
 RUN curl -o /tmp/build/v${PLV8_VERSION}.tar.gz -SL "https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz" 
 RUN tar -xzf /tmp/build/v${PLV8_VERSION}.tar.gz -C /tmp/build/ 
-RUN cd /tmp/build/plv8-${PLV8_VERSION} && make 
+RUN cd /tmp/build/plv8-${PLV8_VERSION} && make && make install
 RUN strip /usr/lib/postgresql/${PG_MAJOR}/lib/plv8-${PLV8_VERSION}.so 
 RUN rm -rf /root/.vpython_cipd_cache /root/.vpython-root 
 RUN apt-get clean 
