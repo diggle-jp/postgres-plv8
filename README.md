@@ -16,3 +16,7 @@ db:
 ## How to update
 1. update Dockerfile
 2. create Release Tag
+
+# License
+
+This code is free to use under the terms of the MIT license.
