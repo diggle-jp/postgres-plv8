@@ -15,6 +15,8 @@ ENV buildDependencies="build-essential \
     cmake \
     libc++-dev \
     libc++abi-dev \
+    libreadline-dev \
+    zlib1g-dev \
     postgresql-server-dev-$PG_MAJOR"
 
 ENV untimeDependencies="libc++1 \
@@ -24,6 +26,12 @@ ENV untimeDependencies="libc++1 \
 RUN apt-get update 
 RUN apt-get install -y --no-install-recommends ${buildDependencies} ${untimeDependencies}
 RUN mkdir -p /tmp/build 
+
+# pg_repackのインストール
+RUN git clone https://github.com/reorg/pg_repack.git;
+RUN cd pg_repack; make; make install;
+
+# plv8インストール
 RUN curl -o /tmp/build/v${PLV8_VERSION}.tar.gz -SL "https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz" 
 RUN tar -xzf /tmp/build/v${PLV8_VERSION}.tar.gz -C /tmp/build/ 
 RUN cd /tmp/build/plv8-${PLV8_VERSION} && make && make install
