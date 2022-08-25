@@ -29,6 +29,7 @@ RUN mkdir -p /tmp/build
 
 # pg_repackのインストール
 RUN git clone https://github.com/reorg/pg_repack.git;
+RUN cd pg_repack; git checkout ver_1.4.6;
 RUN cd pg_repack; make; make install;
 
 # plv8インストール
