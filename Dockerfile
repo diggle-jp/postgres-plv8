@@ -17,6 +17,7 @@ ENV buildDependencies="build-essential \
     libc++abi-dev \
     libreadline-dev \
     zlib1g-dev \
+    ninja-build \
     postgresql-server-dev-$PG_MAJOR"
 
 ENV untimeDependencies="libc++1 \
