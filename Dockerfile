@@ -1,5 +1,5 @@
 
-FROM postgres:13.4
+FROM postgres:13.8
 
 ENV PLV8_VERSION=2.3.15
 ENV buildDependencies="build-essential \
