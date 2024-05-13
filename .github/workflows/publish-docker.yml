@@ -20,4 +20,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ghcr.io/user/plv8:${{ github.ref }}
+          tags: ghcr.io/${{ github.repository }}/plv8:${{ github.ref_name }}
