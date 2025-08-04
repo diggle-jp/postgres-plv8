@@ -1,7 +1,7 @@
-FROM postgres:13.13-bullseye AS base
+FROM postgres:13.21-bullseye AS base
 
 FROM base AS build-pg_repack
-ENV PG_REPACK_VERSION=1.4.7
+ENV PG_REPACK_VERSION=1.5.1
 ENV buildDependencies="build-essential \
     ca-certificates \
     clang \
@@ -16,7 +16,7 @@ RUN apt-get update && \
     cd pg_repack; git checkout ver_${PG_REPACK_VERSION}; make; make install;
 
 FROM base AS build-plv8
-ENV PLV8_VERSION=3.1.8
+ENV PLV8_VERSION=3.1.10
 ENV buildDependencies="build-essential \
     ca-certificates \
     clang \
