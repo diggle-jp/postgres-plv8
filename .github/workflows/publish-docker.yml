@@ -6,6 +6,9 @@ jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        platform: [linux/amd64, linux/arm64]
     permissions:
       packages: write
       contents: read
@@ -18,9 +21,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push (${ { matrix.platform } })
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64 # https://docs.docker.com/build/ci/github-actions/multi-platform/
+          platforms: ${{ matrix.platform }} # https://docs.docker.com/build/ci/github-actions/multi-platform/
           push: true
           tags: ghcr.io/${{ github.repository }}/postgres:${{ github.ref_name }}
