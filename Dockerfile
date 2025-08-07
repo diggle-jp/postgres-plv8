@@ -12,12 +12,13 @@ ENV buildDependencies="build-essential \
     zlib1g-dev"
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ${buildDependencies} && \
-    git clone https://github.com/reorg/pg_repack.git; \
-    cd pg_repack; git checkout ver_${PG_REPACK_VERSION}; make; make install;
+    git clone --branch ver_${PG_REPACK_VERSION} --single-branch --depth 1 https://github.com/reorg/pg_repack.git && \
+    cd pg_repack && make && make install
 
 FROM base AS build-plv8
 ENV PLV8_VERSION=3.1.10
 ENV buildDependencies="build-essential \
+    binutils \
     ca-certificates \
     clang \
     curl \
@@ -30,14 +31,12 @@ ENV buildDependencies="build-essential \
     ninja-build \
     pkg-config \
     postgresql-server-dev-$PG_MAJOR \
-    python \
+    python3 \
     wget"
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ${buildDependencies} && \
-    mkdir -p /tmp/build; \
-    curl -o /tmp/build/v${PLV8_VERSION}.tar.gz -SL "https://github.com/plv8/plv8/archive/refs/tags/v${PLV8_VERSION}.tar.gz"; \
-    tar -xzf /tmp/build/v${PLV8_VERSION}.tar.gz -C /tmp/build/; \
-    cd /tmp/build/plv8-${PLV8_VERSION} && make && make install; \
+    git clone --branch v${PLV8_VERSION} --single-branch --depth 1 https://github.com/plv8/plv8.git && \
+    cd plv8 && make && make install && \
     strip /usr/lib/postgresql/${PG_MAJOR}/lib/plv8-${PLV8_VERSION}.so
 
 FROM base AS finalize
